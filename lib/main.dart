@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'phone singin page.dart';
 import 'singup_otp.dart';
 import 'location_name.dart';
+import 'Home.dart';
+import 'tranding tour.dart';
+import 'ready to go.dart';
+import 'hotoffer.dart';
+import 'popluar.dart';
 
 void main() {
   runApp(MyApp());
@@ -79,7 +84,10 @@ class SignInScreen extends StatelessWidget {
               // Skip & Explore Button
               Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Homepage()));
+                  },
                   child: const Text(
                     'Skip & Explore Now',
                     style: TextStyle(

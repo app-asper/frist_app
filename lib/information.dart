@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frist_app/Home.dart';
 
 class InformationScreen extends StatefulWidget {
   @override
@@ -37,7 +38,10 @@ class _InformationScreenState extends State<InformationScreen> {
         centerTitle: true,
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Homepage()));
+            },
             child: Text("Skip",
                 style: TextStyle(color: Colors.blue, fontSize: 16)),
           ),
@@ -191,6 +195,9 @@ class _InformationScreenState extends State<InformationScreen> {
                   print(
                       "Email: ${emailController.text}, DOB: ${dobController.text}, CNIC: ${cnicController.text}, Marital Status: $maritalStatus, Address: ${addressController.text}");
                 }
+
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Homepage()));
               },
               child: Text("Save & Continue",
                   style: TextStyle(color: Colors.white)),

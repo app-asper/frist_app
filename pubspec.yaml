@@ -65,6 +65,10 @@ flutter:
        -   images/google.png
        - images/phone.png
        - images/logo.png
+       - images/sightseeing.jpg
+       - images/dast.jpg
+
+
 
   fonts:
     - family: PTSans
