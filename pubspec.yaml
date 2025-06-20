@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,6 +68,7 @@ flutter:
        - images/logo.png
        - images/sightseeing.jpg
        - images/dast.jpg
+       - images/trc.jpg
 
 
 

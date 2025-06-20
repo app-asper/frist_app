@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frist_app/Home.dart';
 
-void main() => runApp(Myall());
+void main() => runApp(explore());
 
-class Myall extends StatelessWidget {
+class explore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,12 +25,12 @@ class HunzaTripsPage extends StatelessWidget {
       "rating": 4.5,
       "image": "images/dast.jpg",
       "availability": "3 Booking Left",
-      "discount": "13% OFF"
+      "discount": "19% OFF"
     },
     {
       "title": "Trip To Hunza & Khunjerab Pass",
       "location": "From - Lahore",
-      "duration": "10 days",
+      "duration": "09 days",
       "groupSize": "20 people",
       "price": "PKR 7000",
       "rating": 4.2,
@@ -44,7 +44,7 @@ class HunzaTripsPage extends StatelessWidget {
       "duration": "10 days",
       "groupSize": "20 people",
       "price": "PKR 7000",
-      "rating": 4.9,
+      "rating": 4.3,
       "image": "images/sightseeing.jpg",
       "availability": "3 Booking Left",
       "discount": "13% OFF"
@@ -55,10 +55,10 @@ class HunzaTripsPage extends StatelessWidget {
       "duration": "12 days",
       "groupSize": "18 people",
       "price": "PKR 7000",
-      "rating": 4.0,
+      "rating": 4.2,
       "image": "images/sightseeing.jpg",
       "availability": "3 Booking Left",
-      "discount": "13% OFF"
+      "discount": "17% OFF"
     },
     {
       "title": "Trip To Hunza & Khunjerab Pass",
@@ -68,7 +68,7 @@ class HunzaTripsPage extends StatelessWidget {
       "price": "PKR 7000",
       "rating": 4.2,
       "image": "images/sightseeing.jpg",
-      "availability": "3 Booking Left",
+      "availability": "8 Booking Left",
       "discount": "13% OFF"
     },
     {
@@ -95,7 +95,7 @@ class HunzaTripsPage extends StatelessWidget {
                 context, MaterialPageRoute(builder: (context) => Homepage()));
           },
         ),
-        title: Text("Ready To Go Tours"),
+        title: Text("Popluar Activities"),
         centerTitle: true,
         actions: [Icon(Icons.tune)],
       ),
