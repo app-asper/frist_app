@@ -7,57 +7,80 @@ class togo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BottomReadyToGoTours(),
+      theme: ThemeData(fontFamily: 'PTSans'),
+      home: HunzaTripsPage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class BottomReadToGoTours extends StatelessWidget {
-  final List<Map<String, dynamic>> tours = [
+class HunzaTripsPage extends StatelessWidget {
+  final List<Map<String, dynamic>> trips = [
     {
-      "image": "images/sightseeing.jpg",
       "title": "Cherry Blossom Trip to Hunza Valley",
-      "from": "Lahore",
-      "duration": "10 days",
-      "groupSize": "18 people",
+      "location": "From - Lahore",
+      "duration": "9 days",
+      "groupSize": "20 people",
       "price": "PKR 7000",
       "rating": 4.5,
-      "discount": "13%",
-      "bookingLeft": "3 Booking Left"
-    },
-    {
-      "image": "images/sightseeing.jpg",
-      "title": "Trip To Hunza & Khunjerab Pass",
-      "from": "Lahore",
-      "duration": "12 days",
-      "groupSize": "22 people",
-      "price": "PKR 8500",
-      "rating": 4.7,
-      "discount": "13%",
-      "bookingLeft": "3 Booking Left"
-    },
-    {
-      "image": "images/sightseeing.jpg",
-      "title": "Trip To Hunza & Khunjerab Pass",
-      "from": "Lahore",
-      "duration": "12 days",
-      "groupSize": "22 people",
-      "price": "PKR 8500",
-      "rating": 4.7,
-      "discount": "13%",
-      "bookingLeft": "3 Booking Left"
-    },
-    {
       "image": "images/dast.jpg",
-      "title": "Cherry Blossom Trip to Hunza Valley",
-      "from": "Lahore",
+      "availability": "3 Booking Left",
+      "discount": "13% OFF"
+    },
+    {
+      "title": "Trip To Hunza & Khunjerab Pass",
+      "location": "From - Lahore",
       "duration": "10 days",
+      "groupSize": "20 people",
+      "price": "PKR 7000",
+      "rating": 4.2,
+      "image": "images/sightseeing.jpg",
+      "availability": "3 Booking Left",
+      "discount": "13% OFF"
+    },
+    {
+      "title": "Trip To Hunza & Khunjerab Pass",
+      "location": "From - Lahore",
+      "duration": "10 days",
+      "groupSize": "20 people",
+      "price": "PKR 7000",
+      "rating": 4.3,
+      "image": "images/sightseeing.jpg",
+      "availability": "3 Booking Left",
+      "discount": "13% OFF"
+    },
+    {
+      "title": "Trip To Hunza & Khunjerab Pass",
+      "location": "From - Lahore",
+      "duration": "12 days",
       "groupSize": "18 people",
       "price": "PKR 7000",
-      "rating": 4.5,
-      "discount": "13%",
-      "bookingLeft": "3 Booking Left"
+      "rating": 4.2,
+      "image": "images/sightseeing.jpg",
+      "availability": "3 Booking Left",
+      "discount": "13% OFF"
+    },
+    {
+      "title": "Trip To Hunza & Khunjerab Pass",
+      "location": "From - Lahore",
+      "duration": "15 days",
+      "groupSize": "30 people",
+      "price": "PKR 7000",
+      "rating": 4.2,
+      "image": "images/sightseeing.jpg",
+      "availability": "3 Booking Left",
+      "discount": "13% OFF"
+    },
+    {
+      "title": "Trip To Hunza & Khunjerab Pass",
+      "location": "From - Lahore",
+      "duration": "10 days",
+      "groupSize": "20 people",
+      "price": "PKR 7000",
+      "rating": 4.2,
+      "image": "images/sightseeing.jpg",
+      "availability": "3 Booking Left",
+      "discount": "13% OFF"
     },
   ];
 
@@ -65,24 +88,25 @@ class BottomReadToGoTours extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Trending Tours", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.filter_list)),
-        ],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Homepage()));
+          },
+        ),
+        title: Text("Trending Tours"),
+        centerTitle: true,
+        actions: [Icon(Icons.tune)],
       ),
       body: ListView.builder(
-        padding: EdgeInsets.all(16),
-        itemCount: tours.length,
+        itemCount: trips.length,
         itemBuilder: (context, index) {
-          final tour = tours[index];
+          final trip = trips[index];
           return Card(
-            margin: EdgeInsets.only(bottom: 20),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
+            margin: EdgeInsets.all(16),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,45 +114,40 @@ class BottomReadToGoTours extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(16)),
+                          BorderRadius.vertical(top: Radius.circular(15)),
                       child: Image.asset(
-                        tour["image"],
-                        height: 160,
+                        trip['image'],
                         width: double.infinity,
+                        height: 160,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    if (tour.containsKey("bookingLeft"))
+                    if (trip['availability'] != "")
                       Positioned(
-                        top: 11,
-                        left: 8,
+                        top: 10,
+                        left: 10,
                         child: Container(
                           padding:
                               EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.8),
-                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white70,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text(tour["bookingLeft"],
+                          child: Text(trip['availability'],
                               style: TextStyle(fontSize: 12)),
                         ),
                       ),
                     Positioned(
-                      top: 10,
-                      right: 12,
-                      child: Icon(Icons.favorite_border, color: Colors.white),
-                    ),
-                    Positioned(
-                      top: 40,
-                      left: 8,
+                      top: 39,
+                      left: 9,
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.red,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(6),
                         ),
-                        child: Text("${tour["discount"]} OFF",
+                        child: Text(trip['discount'],
                             style:
                                 TextStyle(color: Colors.white, fontSize: 12)),
                       ),
@@ -140,54 +159,50 @@ class BottomReadToGoTours extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("From - ${tour["from"]}",
-                          style:
-                              TextStyle(fontSize: 12, color: Colors.black54)),
+                      Text(trip['location'],
+                          style: TextStyle(color: Colors.grey)),
                       SizedBox(height: 4),
                       Text(
-                        tour["title"],
+                        trip['title'],
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       SizedBox(height: 8),
                       Row(
                         children: [
-                          Icon(Icons.schedule, size: 14, color: Colors.grey),
+                          Icon(Icons.schedule, size: 16, color: Colors.grey),
                           SizedBox(width: 4),
-                          Text(tour["duration"],
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey)),
-                          SizedBox(width: 12),
-                          Icon(Icons.group, size: 14, color: Colors.grey),
+                          Text(trip['duration']),
+                          SizedBox(width: 16),
+                          Icon(Icons.group, size: 16, color: Colors.grey),
                           SizedBox(width: 4),
-                          Text(tour["groupSize"],
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey)),
+                          Text(trip['groupSize']),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            tour["price"] + " / Person",
+                            trip['price'] + " / Person",
                             style: TextStyle(
                                 color: Colors.green,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
                           ),
                           Row(
                             children: [
-                              Icon(Icons.star, color: Colors.amber, size: 16),
+                              Icon(Icons.star, color: Colors.orange, size: 18),
                               SizedBox(width: 4),
-                              Text(tour["rating"].toString(),
-                                  style: TextStyle(fontSize: 12)),
+                              Text(trip['rating'].toString(),
+                                  style: TextStyle(fontSize: 16))
                             ],
                           )
                         ],
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           );

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:frist_app/My%20Tripes.dart';
+import 'package:frist_app/explore.dart';
 import 'package:frist_app/hotoffer.dart';
 import 'package:frist_app/popluar.dart';
-import 'package:frist_app/ready%20to%20go.dart';
-import 'package:frist_app/tranding%20tour.dart';
+import 'package:frist_app/profile.dart';
+import 'package:frist_app/ready to go.dart';
+import 'package:frist_app/tranding tour.dart';
+import 'My Tripes.dart';
+import 'profile.dart';
+import 'popluar.dart';
 
 void main() => runApp(Homepage());
 
@@ -217,11 +223,39 @@ class HomePage extends StatelessWidget {
               isWeekend: true),
           SizedBox(height: 10),
           _buildTourList(weekendTours),
+          SizedBox(height: 20),
+          _buildSectionTitle("Featured Tours"),
+          SizedBox(height: 10),
+          _buildTourList(bottomTrendingTours),
+          SizedBox(height: 20),
+          _buildSectionTitle("Family Friendly Tours"),
+          SizedBox(height: 10),
+          _buildTourList(upcomingTours),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyTripsPage()),
+            );
+          }
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => explore()),
+            );
+          }
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
+          }
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.hiking), label: "My Trips"),
@@ -240,7 +274,7 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.green.shade50,
           child: Icon(icon, color: Colors.green),
         ),
-        SizedBox(height: 7),
+        SizedBox(height: 5),
         Text(label)
       ],
     );
@@ -269,17 +303,15 @@ class HomePage extends StatelessWidget {
               if (isTop) {
                 page = togo();
               } else if (isUpcoming) {
-                page = Myall111();
+                page = hotoffer();
               } else if (isWeekend) {
-                page = Myall11();
+                page = Popluar();
               } else {
                 page = Myall();
               }
 
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => page),
-              );
+                  context, MaterialPageRoute(builder: (context) => page));
             },
             child: Text("See All")),
       ],
@@ -338,14 +370,19 @@ class HomePage extends StatelessWidget {
         itemCount: tours.length,
         itemBuilder: (context, index) {
           final tour = tours[index];
-
-          return _buildTourCard(
-            from: tour['from']!,
-            title: tour['title']!,
-            price: tour['price']!,
-            rating: tour['rating']!,
-            imagePath: tour['image']!,
-            logoPath: tour['logo']!,
+          return Padding(
+            padding: EdgeInsets.only(
+              left: index == 10 ? 0 : 0,
+              right: 10,
+            ),
+            child: _buildTourCard(
+              from: tour['from']!,
+              title: tour['title']!,
+              price: tour['price']!,
+              rating: tour['rating']!,
+              imagePath: tour['image']!,
+              logoPath: tour['logo']!,
+            ),
           );
         },
       ),
@@ -361,7 +398,6 @@ class HomePage extends StatelessWidget {
     required String logoPath,
   }) {
     return Container(
-      margin: EdgeInsets.only(right: 6),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -461,47 +497,6 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-// Dummy Pages for See All
-class TopTrendingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(" Trending Tours")),
-      body: Center(child: Text(" Trending Tour List")),
-    );
-  }
-}
-
-class BottomReadyToGoTours extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Ready To Go Tours")),
-      body: Center(child: Text("Ready To Go Tours")),
-    );
-  }
-}
-
-class HoteOffer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Hot Offer")),
-      body: Center(child: Text("Hot Offer")),
-    );
-  }
-}
-
-class PopularActivities extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Popular Activities")),
-      body: Center(child: Text("Popular Activities")),
     );
   }
 }
