@@ -63,12 +63,18 @@ flutter:
   assets:
 
        - images/facebook.png
-       -   images/google.png
+       - images/google.png
        - images/phone.png
        - images/logo.png
        - images/sightseeing.jpg
        - images/dast.jpg
        - images/trc.jpg
+       - images/desrt.jpg
+       - images/karchi.jpg
+       - images/naran.jpg
+       - images/road.jpg
+       - images/montin.jpg
+
 
 
 

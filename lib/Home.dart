@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frist_app/My%20Tripes.dart';
+import 'package:frist_app/TrevelGudiens.dart';
 import 'package:frist_app/explore.dart';
 import 'package:frist_app/hotoffer.dart';
 import 'package:frist_app/popluar.dart';
@@ -9,6 +10,7 @@ import 'package:frist_app/tranding tour.dart';
 import 'My Tripes.dart';
 import 'profile.dart';
 import 'popluar.dart';
+import 'newexplore.dart';
 
 void main() => runApp(Homepage());
 
@@ -135,6 +137,44 @@ class HomePage extends StatelessWidget {
     },
   ];
 
+  final List<Map<String, String>> dasrtnightcamp = [
+    {
+      'from': 'Multan',
+      'title': 'Desert Night Camp',
+      'price': '9000',
+      'rating': '4.2',
+      'image': 'images/dast.jpg',
+      'logo': 'images/sightseeing.jpg',
+    },
+    {
+      'from': 'Lahore',
+      'title': 'Kashmir Spring Tour',
+      'price': '8200',
+      'rating': '4.8',
+      'image': 'images/sightseeing.jpg',
+      'logo': 'images/sightseeing.jpg',
+    },
+  ];
+
+  final List<Map<String, String>> featured = [
+    {
+      'from': 'Multan',
+      'title': 'Desert Night Camp',
+      'price': '900',
+      'rating': '4.f',
+      'image': 'images/dast.jpg',
+      'logo': 'images/sightseeing.jpg',
+    },
+    {
+      'from': 'Lahore',
+      'title': 'Kashmir Spring our',
+      'price': '820',
+      'rating': '4.0',
+      'image': 'images/sightseeing.jpg',
+      'logo': 'images/sightseeing.jpg',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,13 +264,16 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 10),
           _buildTourList(weekendTours),
           SizedBox(height: 20),
-          _buildSectionTitle("Featured Tours"),
+          _buildSectionHeader(context, "Travel Guides", dasrtnightcamp, false,
+              isUpcoming: true),
           SizedBox(height: 10),
-          _buildTourList(bottomTrendingTours),
+          _buildTourList(dasrtnightcamp),
+          _buildSectionHeader(
+              context, "Things To Do Before\n Going Trip", featured, false,
+              isWeekend: true),
+          SizedBox(height: 10),
+          _buildTourList(featured, isFeatured: true), // ✅ बदला गया
           SizedBox(height: 20),
-          _buildSectionTitle("Family Friendly Tours"),
-          SizedBox(height: 10),
-          _buildTourList(upcomingTours),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -362,7 +405,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildTourList(List<Map<String, String>> tours) {
+  Widget _buildTourList(List<Map<String, String>> tours,
+      {bool isFeatured = false}) {
     return SizedBox(
       height: 260,
       child: PageView.builder(
@@ -371,17 +415,24 @@ class HomePage extends StatelessWidget {
         itemBuilder: (context, index) {
           final tour = tours[index];
           return Padding(
-            padding: EdgeInsets.only(
-              left: index == 10 ? 0 : 0,
-              right: 10,
-            ),
-            child: _buildTourCard(
-              from: tour['from']!,
-              title: tour['title']!,
-              price: tour['price']!,
-              rating: tour['rating']!,
-              imagePath: tour['image']!,
-              logoPath: tour['logo']!,
+            padding: EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () {
+                if (!isFeatured) {
+                  print("Default card clicked: ${tour['title']}");
+                } else {
+                  print("Custom card clicked: ${tour['title']}");
+                }
+              },
+              child: _buildTourCard(
+                from: tour['from']!,
+                title: tour['title']!,
+                price: tour['price']!,
+                rating: tour['rating']!,
+                imagePath: tour['image']!,
+                logoPath: tour['logo']!,
+                hideInfo: isFeatured,
+              ),
             ),
           );
         },
@@ -396,6 +447,7 @@ class HomePage extends StatelessWidget {
     required String rating,
     required String imagePath,
     required String logoPath,
+    bool hideInfo = false,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -420,48 +472,51 @@ class HomePage extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Positioned(
-                top: 8,
-                right: 8,
-                child: CircleAvatar(
-                  radius: 18,
-                  backgroundColor: Colors.white,
-                  child: ClipOval(
-                    child: Image.asset(
-                      logoPath,
-                      height: 30,
-                      width: 30,
-                      fit: BoxFit.cover,
+              if (!hideInfo)
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Colors.white,
+                    child: ClipOval(
+                      child: Image.asset(
+                        logoPath,
+                        height: 30,
+                        width: 30,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                top: 10,
-                left: 10,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(10),
+              if (!hideInfo)
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: Colors.redAccent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text("13% OFF",
+                        style: TextStyle(color: Colors.white, fontSize: 10)),
                   ),
-                  child: Text("13% OFF",
-                      style: TextStyle(color: Colors.white, fontSize: 10)),
                 ),
-              ),
-              Positioned(
-                bottom: 10,
-                left: 10,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: Colors.orangeAccent,
-                    borderRadius: BorderRadius.circular(10),
+              if (!hideInfo)
+                Positioned(
+                  bottom: 10,
+                  left: 10,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: Colors.orangeAccent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text("3 Bookings Left",
+                        style: TextStyle(color: Colors.white, fontSize: 10)),
                   ),
-                  child: Text("3 Bookings Left",
-                      style: TextStyle(color: Colors.white, fontSize: 10)),
-                ),
-              )
+                )
             ],
           ),
           Padding(
@@ -476,22 +531,24 @@ class HomePage extends StatelessWidget {
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                 SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("PKR $price / Person",
-                        style: TextStyle(
-                            color: Colors.green, fontWeight: FontWeight.bold)),
-                    Row(
-                      children: [
-                        Icon(Icons.star, color: Colors.amber, size: 16),
-                        SizedBox(width: 3),
-                        Text(rating,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    )
-                  ],
-                )
+                if (!hideInfo)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("PKR $price / Person",
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold)),
+                      Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.amber, size: 16),
+                          SizedBox(width: 3),
+                          Text(rating,
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      )
+                    ],
+                  )
               ],
             ),
           )
