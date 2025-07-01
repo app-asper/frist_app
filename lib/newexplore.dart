@@ -1,212 +1,174 @@
 import 'package:flutter/material.dart';
-import 'package:frist_app/Home.dart';
+import 'package:frist_app/explore.dart';
+import 'package:frist_app/ready%20to%20go.dart';
+import 'package:frist_app/tranding tour.dart';
+import 'package:frist_app/hotoffer.dart';
 
-void main() => runApp(newexplore());
-
-class newexplore extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(fontFamily: 'PTSans'),
-      home: HunzaTripsPage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class HunzaTripsPage extends StatelessWidget {
-  final List<Map<String, dynamic>> trips = [
-    {
-      "title": "Cherry Blossom Trip to Hunza Valley",
-      "location": "From - Lahore",
-      "duration": "9 days",
-      "groupSize": "20 people",
-      "price": "PKR 7000",
-      "rating": 4.5,
-      "image": "images/dast.jpg",
-      "availability": "3 Booking Left",
-      "discount": "19% OFF"
-    },
-    {
-      "title": "Trip To Hunza & Khunjerab Pass",
-      "location": "From - Lahore",
-      "duration": "09 days",
-      "groupSize": "20 people",
-      "price": "PKR 7000",
-      "rating": 4.2,
-      "image": "images/sightseeing.jpg",
-      "availability": "3 Booking Left",
-      "discount": "13% OFF"
-    },
-    {
-      "title": "Trip To Hunza & Khunjerab Pass",
-      "location": "From - Lahore",
-      "duration": "10 days",
-      "groupSize": "20 people",
-      "price": "PKR 7000",
-      "rating": 4.3,
-      "image": "images/sightseeing.jpg",
-      "availability": "3 Booking Left",
-      "discount": "13% OFF"
-    },
-    {
-      "title": "Trip To Hunza & Khunjerab Pass",
-      "location": "From - Lahore",
-      "duration": "12 days",
-      "groupSize": "18 people",
-      "price": "PKR 7000",
-      "rating": 4.2,
-      "image": "images/sightseeing.jpg",
-      "availability": "3 Booking Left",
-      "discount": "17% OFF"
-    },
-    {
-      "title": "Trip To Hunza & Khunjerab Pass",
-      "location": "From - Lahore",
-      "duration": "15 days",
-      "groupSize": "30 people",
-      "price": "PKR 7000",
-      "rating": 4.2,
-      "image": "images/sightseeing.jpg",
-      "availability": "8 Booking Left",
-      "discount": "13% OFF"
-    },
-    {
-      "title": "Trip To Hunza & Khunjerab Pass",
-      "location": "From - Lahore",
-      "duration": "10 days",
-      "groupSize": "20 people",
-      "price": "PKR 7000",
-      "rating": 4.2,
-      "image": "images/sightseeing.jpg",
-      "availability": "3 Booking Left",
-      "discount": "13% OFF"
-    },
-  ];
-
+class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Homepage()));
+            Navigator.pop(context);
           },
         ),
-        title: Text("Popluar Activities"),
-        centerTitle: true,
-        actions: [Icon(Icons.tune)],
+        title: Text(
+          "Search your place",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'PtSans',
+          ),
+        ),
       ),
-      body: ListView.builder(
-        itemCount: trips.length,
-        itemBuilder: (context, index) {
-          final trip = trips[index];
-          return Card(
-            margin: EdgeInsets.all(10),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(15)),
-                      child: Image.asset(
-                        trip['image'],
-                        width: double.infinity,
-                        height: 160,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    if (trip['availability'] != "")
-                      Positioned(
-                        top: 10,
-                        left: 10,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: Colors.white70,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(trip['availability'],
-                              style: TextStyle(fontSize: 12)),
-                        ),
-                      ),
-                    Positioned(
-                      top: 39,
-                      left: 9,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(trip['discount'],
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 12)),
-                      ),
-                    ),
-                  ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(16, 10, 16, 100),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Search Box
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                margin: EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade300),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(trip['location'],
-                          style: TextStyle(color: Colors.grey)),
-                      SizedBox(height: 4),
-                      Text(
-                        trip['title'],
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Icon(Icons.schedule, size: 16, color: Colors.grey),
-                          SizedBox(width: 4),
-                          Text(trip['duration']),
-                          SizedBox(width: 16),
-                          Icon(Icons.group, size: 16, color: Colors.grey),
-                          SizedBox(width: 4),
-                          Text(trip['groupSize']),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            trip['price'] + " / Person",
-                            style: TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
-                          ),
-                          Row(
-                            children: [
-                              Icon(Icons.star, color: Colors.orange, size: 18),
-                              SizedBox(width: 4),
-                              Text(trip['rating'].toString(),
-                                  style: TextStyle(fontSize: 16))
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Where you're going",
+                    hintStyle: TextStyle(
+                      fontFamily: 'PtSans',
+                      fontWeight: FontWeight.w500,
+                    ),
+                    icon: Icon(Icons.search),
+                    border: InputBorder.none,
                   ),
                 ),
-              ],
+              ),
+
+              SizedBox(height: 28),
+
+              // Popular Places Title
+              Text(
+                "POPULAR PLACES",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'PtSans',
+                  color: Colors.grey,
+                ),
+              ),
+              SizedBox(height: 12),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => explore(),
+                    ),
+                  );
+                },
+                child: _buildPlaceItem("Hunza Valley"),
+              ),
+              SizedBox(height: 12),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => togo(),
+                    ),
+                  );
+                },
+                child: _buildPlaceItem("Tranding Tours"),
+              ),
+              SizedBox(height: 12),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => hotoffer(),
+                    ),
+                  );
+                },
+                child: _buildPlaceItem("Hot offer"),
+              ),
+              SizedBox(height: 12),
+
+              SizedBox(height: 32),
+
+              // Categories Title
+              Text(
+                "CATEGORIES",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'PtSans',
+                  color: Colors.grey,
+                ),
+              ),
+              SizedBox(height: 16),
+
+              // Category Items
+              _buildCategoryItem("Advanture"),
+              SizedBox(height: 33),
+              _buildCategoryItem("Beaches"),
+              SizedBox(height: 33),
+              _buildCategoryItem("Culture"),
+              SizedBox(height: 33),
+              _buildCategoryItem("Camping"),
+              SizedBox(height: 33),
+              _buildCategoryItem("Honeymoon"),
+              SizedBox(height: 33),
+              _buildCategoryItem("Sightseeing"),
+              SizedBox(height: 33),
+              _buildCategoryItem("Montain"),
+
+              SizedBox(height: 80),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPlaceItem(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Icon(Icons.search, size: 18, color: Colors.black),
+          SizedBox(width: 10),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'PtSans',
             ),
-          );
-        },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryItem(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: 16,
+        fontFamily: 'PtSans',
       ),
     );
   }

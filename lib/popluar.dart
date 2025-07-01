@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frist_app/Home.dart';
+import 'package:frist_app/filter.dart';
 
 void main() => runApp(Popluar());
 
@@ -97,7 +98,17 @@ class HunzaTripsPage extends StatelessWidget {
         ),
         title: Text("Popluar Activities"),
         centerTitle: true,
-        actions: [Icon(Icons.tune)],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.tune),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Filter()),
+              );
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: trips.length,

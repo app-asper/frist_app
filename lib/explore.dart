@@ -95,7 +95,7 @@ class HunzaTripsPage extends StatelessWidget {
                 context, MaterialPageRoute(builder: (context) => Homepage()));
           },
         ),
-        title: Text("Popluar Activities"),
+        title: Text("Hunza Valley"),
         centerTitle: true,
         actions: [Icon(Icons.tune)],
       ),

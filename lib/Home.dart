@@ -3,6 +3,9 @@ import 'package:frist_app/My%20Tripes.dart';
 import 'package:frist_app/TrevelGudiens.dart';
 import 'package:frist_app/explore.dart';
 import 'package:frist_app/hotoffer.dart';
+import 'package:frist_app/location.dart';
+import 'package:frist_app/notifaciton.dart';
+import 'package:frist_app/planTrip.dart';
 import 'package:frist_app/popluar.dart';
 import 'package:frist_app/profile.dart';
 import 'package:frist_app/ready to go.dart';
@@ -11,6 +14,7 @@ import 'My Tripes.dart';
 import 'profile.dart';
 import 'popluar.dart';
 import 'newexplore.dart';
+import 'explore.dart';
 
 void main() => runApp(Homepage());
 
@@ -179,17 +183,30 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Icon(Icons.location_on, color: Colors.green),
-            SizedBox(width: 4),
-            Text("Lahore", style: TextStyle(color: Colors.black)),
-          ],
+        title: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LocationPage()),
+            );
+          },
+          child: Row(
+            children: [
+              Icon(Icons.location_on, color: Colors.green),
+              SizedBox(width: 4),
+              Text("Lahore", style: TextStyle(color: Colors.black)),
+            ],
+          ),
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.notifications_none),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationPage()),
+              );
+            },
           ),
         ],
         backgroundColor: Colors.white,
@@ -202,6 +219,12 @@ class HomePage extends StatelessWidget {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
           SizedBox(height: 12),
           TextField(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Search()),
+              );
+            },
             decoration: InputDecoration(
               hintText: 'Search for the place',
               prefixIcon: Icon(Icons.search),
@@ -213,9 +236,33 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildRoundIcon(Icons.explore, "Explore"),
-              _buildRoundIcon(Icons.event, "Activities"),
-              _buildRoundIcon(Icons.map, "Plan Trip"),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Search()),
+                  );
+                },
+                child: _buildRoundIcon(Icons.explore, "Explore"),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PlanTrip()),
+                  );
+                },
+                child: _buildRoundIcon(Icons.event, "Activities"),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PlanTrip()),
+                  );
+                },
+                child: _buildRoundIcon(Icons.map, "Plan Trip"),
+              ),
             ],
           ),
           SizedBox(height: 20),
