@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frist_app/agencyProfile.dart';
 import 'package:frist_app/chousedate.dart';
 import 'package:frist_app/ready to go.dart';
+import '';
 
 void main() {
   runApp(const MyAp());
@@ -79,7 +80,7 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
               ),
               SizedBox(height: 20),
               _ShareOption(title: 'Facebook', icon: Icons.facebook),
-              _ShareOption(title: 'Whatsapp', icon: Icons.snapchat),
+              _ShareOption(title: 'Snapchat', icon: Icons.snapchat),
               _ShareOption(title: 'Copy Link', icon: Icons.link),
               _ShareOption(title: 'More Option', icon: Icons.more_horiz),
             ],
@@ -135,12 +136,14 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
           SliverAppBar(
             expandedHeight: 450,
             pinned: true,
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => togo()));
+                  context,
+                  MaterialPageRoute(builder: (_) => togo()),
+                );
               },
             ),
             actions: [
@@ -149,74 +152,87 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
                 onPressed: () => _showShareBottomSheet(context),
               ),
             ],
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
-                '',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              background: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.asset(
-                    'images/cheary.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                  const Positioned(
-                    bottom: 20,
-                    left: 10,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Cherry Blossom\nTrip to Hunza Valley',
+            flexibleSpace: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                final double appBarHeight = constraints.biggest.height;
+
+                // Show title only when AppBar is collapsed
+                final bool isCollapsed = appBarHeight < kToolbarHeight + 50;
+
+                return FlexibleSpaceBar(
+                  title: isCollapsed
+                      ? const Text(
+                          'Cherry Blossom Trip to Hunza Valley',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 16,
                           ),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          'From - Lahore',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                        SizedBox(height: 6),
-                        Row(
+                        )
+                      : null,
+                  background: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        'images/cheary.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                      const Positioned(
+                        bottom: 20,
+                        left: 10,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.star, color: Colors.yellow, size: 18),
-                            SizedBox(width: 4),
                             Text(
-                              '4.7 ',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              '472 Reviews',
+                              'Cherry Blossom\nTrip to Hunza Valley',
                               style: TextStyle(
-                                  color: Colors.white70, fontSize: 13),
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              'From - Lahore',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
+                            SizedBox(height: 6),
+                            Row(
+                              children: [
+                                Icon(Icons.star,
+                                    color: Colors.yellow, size: 18),
+                                SizedBox(width: 4),
+                                Text('4.7 ',
+                                    style: TextStyle(color: Colors.white)),
+                                Text('472 Reviews',
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 13)),
+                              ],
+                            ),
+                            SizedBox(height: 6),
+                            Row(
+                              children: [
+                                Icon(Icons.access_time,
+                                    color: Colors.white, size: 16),
+                                SizedBox(width: 4),
+                                Text('10 Days',
+                                    style: TextStyle(color: Colors.white)),
+                                SizedBox(width: 16),
+                                Icon(Icons.group,
+                                    color: Colors.white, size: 16),
+                                SizedBox(width: 4),
+                                Text('15 People',
+                                    style: TextStyle(color: Colors.white)),
+                              ],
                             ),
                           ],
                         ),
-                        SizedBox(height: 6),
-                        Row(
-                          children: [
-                            Icon(Icons.access_time,
-                                color: Colors.white, size: 16),
-                            SizedBox(width: 4),
-                            Text('10 Days',
-                                style: TextStyle(color: Colors.white)),
-                            SizedBox(width: 16),
-                            Icon(Icons.group, color: Colors.white, size: 16),
-                            SizedBox(width: 4),
-                            Text('15 People',
-                                style: TextStyle(color: Colors.white)),
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              collapseMode: CollapseMode.parallax,
+                  collapseMode: CollapseMode.parallax,
+                );
+              },
             ),
           ),
           SliverToBoxAdapter(
@@ -433,6 +449,37 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 20),
+                      const SectionTitle("Rating and Reviews"),
+                      const SizedBox(height: 10),
+                      const ReviewCard(
+                        name: "Ayaz",
+                        date: "08 Nov 2020",
+                        rating: 4,
+                        review:
+                            "They arranged my trip to Hunza with family. Extremely cooperative staff, kept me in the loop and bought me cheapest tickets which were even cheaper than online tickets. Arranged hotel, transport and activities too. Everything was great.",
+                      ),
+                      const ReviewCard(
+                        name: "Anees",
+                        date: "08 Nov 2020",
+                        rating: 4,
+                        review:
+                            "They arranged my trip to Hunza with family. Extremely cooperative staff, kept me in the loop and bought me cheapest tickets which were even cheaper than online tickets. Arranged hotel, transport and activities too. Everything was great.",
+                      ),
+                      const ReviewCard(
+                        name: "subhan.",
+                        date: "08 Nov 2020",
+                        rating: 4,
+                        review:
+                            "They arranged my trip to Hunza with family. Extremely cooperative staff, kept me in the loop and bought me cheapest tickets which were even cheaper than online tickets. Arranged hotel, transport and activities too. Everything was great.",
+                      ),
+                      const ReviewCard(
+                        name: "mohsin",
+                        date: "08 Nov 2020",
+                        rating: 4,
+                        review:
+                            "They arranged my trip to Hunza with family. Extremely cooperative staff, kept me in the loop and bought me cheapest tickets which were even cheaper than online tickets. Arranged hotel, transport and activities too. Everything was great.",
+                      ),
                       const SizedBox(height: 80),
                     ],
                   ),
@@ -478,7 +525,6 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
   }
 }
 
-// Reusable Widgets
 class SectionTitle extends StatelessWidget {
   final String title;
   final Key? sectionKey;
@@ -495,15 +541,56 @@ class SectionTitle extends StatelessWidget {
 }
 
 Widget buildItineraryDay(String day, List<String> activities) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(day,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-      ...activities.map(
-          (act) => Text("• $act", style: const TextStyle(color: Colors.grey))),
-      const SizedBox(height: 10),
-    ],
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 6),
+    decoration: BoxDecoration(
+      color: const Color(0xFFE6F4EA),
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 1,
+          blurRadius: 4,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    ),
+    child: Theme(
+      data: ThemeData().copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        title: Text(
+          day,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            color: Colors.black87,
+          ),
+        ),
+        children: activities
+            .map(
+              (activity) => Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                child: Row(
+                  children: [
+                    const Icon(Icons.circle, size: 8, color: Colors.black54),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        activity,
+                        style: const TextStyle(
+                            fontSize: 14, color: Colors.black87),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    ),
   );
 }
 
@@ -518,6 +605,59 @@ class _ShareOption extends StatelessWidget {
       leading: Icon(icon),
       title: Text(title),
       onTap: () => Navigator.pop(context),
+    );
+  }
+}
+
+class ReviewCard extends StatelessWidget {
+  final String name;
+  final String date;
+  final int rating;
+  final String review;
+
+  const ReviewCard({
+    super.key,
+    required this.name,
+    required this.date,
+    required this.rating,
+    required this.review,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16)),
+                Text(date, style: const TextStyle(color: Colors.grey)),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: List.generate(
+                5,
+                (index) => Icon(
+                  index < rating ? Icons.star : Icons.star_border,
+                  color: Colors.amber,
+                  size: 20,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(review, style: const TextStyle(fontSize: 14)),
+          ],
+        ),
+      ),
     );
   }
 }

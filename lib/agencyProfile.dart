@@ -1,175 +1,227 @@
 import 'package:flutter/material.dart';
-import 'package:frist_app/agency2.dart';
-import 'package:frist_app/tripdeatil.dart';
 
 void main() {
-  runApp(const agencyprofile());
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: AgencyProfileCombined(),
+  ));
 }
 
-class agencyprofile extends StatelessWidget {
-  const agencyprofile({super.key});
+class AgencyProfileCombined extends StatefulWidget {
+  const AgencyProfileCombined({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Travel App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'PtSans'),
-      home: const AgencyProfilePage(),
-    );
-  }
+  State<AgencyProfileCombined> createState() => _AgencyProfileCombinedState();
 }
 
-class AgencyProfilePage extends StatelessWidget {
-  const AgencyProfilePage({super.key});
+class _AgencyProfileCombinedState extends State<AgencyProfileCombined>
+    with TickerProviderStateMixin {
+  late TabController _tabController;
 
-  final List<Map<String, dynamic>> tripList = const [
+  final List<Map<String, dynamic>> tripList = [
     {
       "title": "Cherry Blossom Trip to Hunza Valley",
       "location": "From - Lahore",
       "duration": "9 days",
       "groupSize": "20 people",
       "price": "PKR 7000",
-      "rating": 4.5,
+      "rating": "4.5",
       "image": "images/dast.jpg",
       "availability": "3 Booking Left",
-      "discount": "13% OFF"
+      "discount": "13% OFF",
     },
     {
-      "title": "Trip to Hunza & Khunjerab Pass",
+      "title": "Explore Skardu Mountains",
       "location": "From - Lahore",
-      "duration": "16 days",
-      "groupSize": "22 people",
-      "price": "PKR 17000",
-      "rating": 4.6,
+      "duration": "7 days",
+      "groupSize": "15 people",
+      "price": "PKR 8500",
+      "rating": "4.7",
+      "image": "images/cheary.jpg",
+      "availability": "5 Booking Left",
+      "discount": "10% OFF",
+    },
+    {
+      "title": "Khunjerab Pass Tour",
+      "location": "From - Lahore",
+      "duration": "10 days",
+      "groupSize": "25 people",
+      "price": "PKR 9500",
+      "rating": "4.6",
       "image": "images/montin.jpg",
-      "availability": null,
-      "discount": "13% OFF"
-    },
-    {
-      "title": "Trip to Hunza & Naltar",
-      "location": "From - Lahore",
-      "duration": "16 days",
-      "groupSize": "22 people",
-      "price": "PKR 17000",
-      "rating": 4.7,
-      "image": "images/road.jpg",
-      "availability": null,
-      "discount": null
+      "availability": "2 Booking Left",
+      "discount": "15% OFF",
     },
   ];
+
+  final List<Map<String, String>> reviews = [
+    {
+      "name": "Anees Ahmad",
+      "image": "images/anees.jpg",
+      "review":
+          "It was a great experience! The trip was well organized and the guide was very helpful. Would love to travel again.",
+    },
+    {
+      "name": "Mohsin",
+      "image": "images/mohsin.jpg",
+      "review":
+          "Skardu trip was amazing. The travel agency took care of everything perfectly. Highly recommended!",
+    },
+    {
+      "name": "Ahmad",
+      "image": "images/karchi.jpg",
+      "review":
+          "Cherry blossom season in Hunza was breathtaking. The group was fun and the hotel stays were comfortable.",
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agency Profile'),
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const MyAp()),
-          ),
+        title: const Text(
+          'Adventure Point Travel Agency',
+          style: TextStyle(color: Colors.black),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              'images/boys.jpg',
-              width: double.infinity,
-              height: 250, // Expanded height
-              fit: BoxFit.cover,
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage('images/dast.jpg'),
-                    radius: 30,
-                  ),
-                  const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => agency2()),
-                          );
-                        },
-                        child: const Text(
-                          "Adventure Point\nTravel Agency",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.green, size: 16),
-                          SizedBox(width: 4),
-                          Text("4.8",
-                              style: TextStyle(fontWeight: FontWeight.w500)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                "Packages",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 10),
-
-            // Trip Cards
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: tripList.map((trip) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: _tripCard(context, trip),
-                  );
-                }).toList(),
-              ),
-            ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        bottom: TabBar(
+          controller: _tabController,
+          labelColor: Colors.green,
+          unselectedLabelColor: Colors.black,
+          indicatorColor: Colors.green,
+          tabs: const [
+            Tab(text: "Packages"),
+            Tab(text: "About"),
+            Tab(text: "Reviews"),
           ],
         ),
       ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          // ----------------- Packages -----------------
+          ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: tripList.length,
+            itemBuilder: (context, index) {
+              final trip = tripList[index];
+              return TripCard(
+                title: trip["title"]!,
+                location: trip["location"]!,
+                duration: trip["duration"]!,
+                groupSize: trip["groupSize"]!,
+                price: trip["price"]!,
+                rating: trip["rating"]!,
+                image: trip["image"]!,
+                availability: trip["availability"]!,
+                discount: trip["discount"]!,
+              );
+            },
+          ),
+
+          // ----------------- About -----------------
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text("About Adventure Point",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                SizedBox(height: 12),
+                Text(
+                  "Adventure Point is a trusted travel agency providing unique and memorable tours across Pakistan. "
+                  "From breathtaking mountains to serene valleys, our packages cover everything for an unforgettable experience. "
+                  "We focus on safety, comfort, and creating joyful travel moments for our customers.",
+                  style: TextStyle(fontSize: 15, height: 1.5),
+                ),
+              ],
+            ),
+          ),
+
+          // ----------------- Reviews -----------------
+          ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: reviews.length,
+            itemBuilder: (context, index) {
+              final review = reviews[index];
+              return ReviewTile(
+                name: review["name"]!,
+                image: review["image"]!,
+                review: review["review"]!,
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
+}
 
-  Widget _tripCard(BuildContext context, Map<String, dynamic> trip) {
-    return SizedBox(
-      width: double.infinity,
-      height: 300,
-      child: ClipRRect(
+// ----------------- Trip Card Widget -----------------
+class TripCard extends StatelessWidget {
+  final String title,
+      location,
+      duration,
+      groupSize,
+      price,
+      rating,
+      image,
+      availability,
+      discount;
+
+  const TripCard({
+    super.key,
+    required this.title,
+    required this.location,
+    required this.duration,
+    required this.groupSize,
+    required this.price,
+    required this.rating,
+    required this.image,
+    required this.availability,
+    required this.discount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        child: Stack(
-          children: [
-            Image.asset(
-              trip['image'],
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            if (trip['discount'] != null)
+        boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 5)],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
+                child: Image.asset(
+                  image,
+                  height: 160,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Positioned(
                 top: 10,
                 left: 10,
@@ -177,91 +229,137 @@ class AgencyProfilePage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    trip['discount'],
+                    availability,
                     style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
-            if (trip['availability'] != null)
               Positioned(
                 top: 10,
-                right: 10,
+                left: 140,
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6),
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    trip['availability'],
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                    discount,
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
               ),
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: MediaQuery.of(context).size.width - 32,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.95),
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
-                  ),
+              const Positioned(
+                bottom: 8,
+                right: 8,
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('images/logo.png'),
+                  backgroundColor: Colors.black,
+                  radius: 20,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(location,
+                    style: const TextStyle(fontSize: 12, color: Colors.grey)),
+                const SizedBox(height: 4),
+                Text(title,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Row(
                   children: [
-                    Text(trip['location'],
-                        style: TextStyle(color: Colors.grey[600])),
-                    const SizedBox(height: 4),
-                    Text(trip['title'],
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 6),
-                    Row(
-                      children: [
-                        const Icon(Icons.access_time, size: 16),
-                        const SizedBox(width: 4),
-                        Text(trip['duration']),
-                        const SizedBox(width: 12),
-                        const Icon(Icons.group, size: 16),
-                        const SizedBox(width: 4),
-                        Text(trip['groupSize']),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(trip['price'],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.green)),
-                        Row(
-                          children: [
-                            const Icon(Icons.star,
-                                color: Colors.orange, size: 18),
-                            const SizedBox(width: 2),
-                            Text(trip['rating'].toStringAsFixed(1)),
-                          ],
-                        ),
-                      ],
-                    ),
+                    const Icon(Icons.schedule, size: 16, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    Text(duration, style: const TextStyle(fontSize: 13)),
+                    const SizedBox(width: 16),
+                    const Icon(Icons.group, size: 16, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    Text(groupSize, style: const TextStyle(fontSize: 13)),
                   ],
                 ),
-              ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(price,
+                        style: const TextStyle(
+                            color: Colors.green,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 4),
+                    const Text("/ Person",
+                        style: TextStyle(color: Colors.grey)),
+                    const Spacer(),
+                    const Icon(Icons.star, size: 16, color: Colors.amber),
+                    const SizedBox(width: 4),
+                    Text(rating,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ----------------- Review Widget -----------------
+class ReviewTile extends StatelessWidget {
+  final String name;
+  final String image;
+  final String review;
+
+  const ReviewTile({
+    super.key,
+    required this.name,
+    required this.image,
+    required this.review,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CircleAvatar(radius: 30, backgroundImage: AssetImage(image)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(name,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold)),
+                const Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.amber, size: 16),
+                    Icon(Icons.star, color: Colors.amber, size: 16),
+                    Icon(Icons.star, color: Colors.amber, size: 16),
+                    Icon(Icons.star, color: Colors.amber, size: 16),
+                    Icon(Icons.star_half, color: Colors.amber, size: 16),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(review, style: const TextStyle(fontSize: 14, height: 1.5)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
