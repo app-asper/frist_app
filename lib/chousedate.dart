@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frist_app/choicegust.dart';
+import 'package:frist_app/confromandpay.dart';
+import 'package:frist_app/tripdeatil.dart';
 
 void main() => runApp(MaterialApp(home: Date()));
 
@@ -26,9 +29,11 @@ class _ChooseDatePageState extends State<Date> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyAp()),
+                )),
       ),
       body: Column(
         children: [
@@ -69,6 +74,10 @@ class _ChooseDatePageState extends State<Date> {
                 Spacer(),
                 ElevatedButton(
                   onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => choice1()),
+                    );
                     // Handle next
                   },
                   style: ElevatedButton.styleFrom(
@@ -78,7 +87,8 @@ class _ChooseDatePageState extends State<Date> {
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   ),
-                  child: Text("NEXT"),
+                  child: const Text("BOOK NOW",
+                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),

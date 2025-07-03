@@ -15,6 +15,7 @@ import 'profile.dart';
 import 'popluar.dart';
 import 'newexplore.dart';
 import 'explore.dart';
+import 'thing to before.dart';
 
 void main() => runApp(Homepage());
 
@@ -48,7 +49,6 @@ class HomePage extends StatelessWidget {
     {'title': 'Desert', 'image': 'images/dast.jpg'},
     {'title': 'City Tours', 'image': 'images/sightseeing.jpg'},
   ];
-
   final List<Map<String, String>> topTrendingTours = [
     {
       'from': 'Lahore',
@@ -178,6 +178,33 @@ class HomePage extends StatelessWidget {
       'logo': 'images/sightseeing.jpg',
     },
   ];
+  final List<Map<String, String>> travelgudie = [
+    {'title': 'Sightseeing', 'image': 'images/dast.jpg'},
+    {'title': 'Beach', 'image': 'images/sightseeing.jpg'},
+    {'title': 'Camping', 'image': 'images/dast.jpg'},
+    {'title': 'Mountains', 'image': 'images/sightseeing.jpg'},
+    {'title': 'Desert', 'image': 'images/dast.jpg'},
+    {'title': 'City Tours', 'image': 'images/dast.jpg'},
+  ];
+
+  final List<Map<String, String>> Thingbefore = [
+    {
+      'from': '21 jun 2023',
+      'title': 'Travel is my best terphy\n 2023',
+      'price': '820',
+      'rating': '4.0',
+      'image': 'images/sightseeing.jpg',
+      'logo': 'images/sightseeing.jpg',
+    },
+    {
+      'from': '21 jun 2023',
+      'title': 'Travel is my best terphy\n 2023',
+      'price': '820',
+      'rating': '4.0',
+      'image': 'images/sightseeing.jpg',
+      'logo': 'images/sightseeing.jpg',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -270,8 +297,8 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 10),
           _buildCategoryList(topCategories),
           SizedBox(height: 20),
-          _buildSectionHeader(
-              context, "Trending Tours", topTrendingTours, true),
+          _buildSectionHeader(context, "Trending Tours", topTrendingTours,
+              isTrendingTours: true),
           SizedBox(height: 10),
           _buildTourList(topTrendingTours),
           SizedBox(height: 24),
@@ -296,30 +323,32 @@ class HomePage extends StatelessWidget {
           _buildCategoryList(bottomCategories),
           SizedBox(height: 20),
           _buildSectionHeader(
-              context, "Ready To Go Tours", bottomTrendingTours, false),
+            context,
+            "Ready To Go Tours",
+            bottomTrendingTours,
+          ),
           SizedBox(height: 10),
           _buildTourList(bottomTrendingTours),
           SizedBox(height: 20),
-          _buildSectionHeader(context, "Hot Offer", upcomingTours, false,
+          _buildSectionHeader(context, "Hot Offer", upcomingTours,
               isUpcoming: true),
           SizedBox(height: 10),
           _buildTourList(upcomingTours),
           SizedBox(height: 20),
-          _buildSectionHeader(
-              context, "Popular Activities", weekendTours, false,
+          _buildSectionHeader(context, "Popular Activities", weekendTours,
               isWeekend: true),
           SizedBox(height: 10),
           _buildTourList(weekendTours),
           SizedBox(height: 20),
-          _buildSectionHeader(context, "Travel Guides", dasrtnightcamp, false,
-              isUpcoming: true),
-          SizedBox(height: 10),
-          _buildTourList(dasrtnightcamp),
+          _buildSectionHeader(context, "Travel Guides", travelgudie,
+              isTravelgudie: true),
+          SizedBox(height: 20),
+          _buildCategoryList(travelgudie),
           _buildSectionHeader(
-              context, "Things To Do Before\n Going Trip", featured, false,
-              isWeekend: true),
+              context, "Things To Do Before\n Going Trip", Thingbefore,
+              isFeedback: true),
           SizedBox(height: 10),
-          _buildTourList(featured, isFeatured: true), // ✅ बदला गया
+          _buildTourList(Thingbefore, isFeatured: true),
           SizedBox(height: 20),
         ],
       ),
@@ -379,9 +408,14 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, String title,
-      List<Map<String, String>> items, bool isTop,
-      {bool isUpcoming = false, bool isWeekend = false}) {
+  Widget _buildSectionHeader(
+      BuildContext context, String title, List<Map<String, String>> items,
+      {bool isTravelgudie = false,
+      bool isUpcoming = false,
+      bool isWeekend = false,
+      bool isTrendingTours = false,
+      bool isTop = false,
+      bool isFeedback = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -396,10 +430,18 @@ class HomePage extends StatelessWidget {
                 page = hotoffer();
               } else if (isWeekend) {
                 page = Popluar();
-              } else {
+              } else if (isTrendingTours) {
                 page = Myall();
+              } else if (isTravelgudie) {
+                page = TravelGuide();
+              } else if (isFeedback) {
+                page = thingbrfore();
+              } else {
+                page = Scaffold(
+                  appBar: AppBar(title: Text("Page Not Found")),
+                  body: Center(child: Text("No matching condition.")),
+                );
               }
-
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => page));
             },
@@ -411,20 +453,57 @@ class HomePage extends StatelessWidget {
   Widget _buildCategoryList(List<Map<String, String>> categories) {
     return SizedBox(
       height: 130,
+      width: 130,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {
-          return _buildCategoryCard(categories[index]);
+          return _buildCategoryCard(
+            categories[index],
+            100,
+          );
         },
       ),
     );
   }
 
-  Widget _buildCategoryCard(Map<String, String> category) {
+  Widget _buildbottomCategoriesList(
+      List<Map<String, String>> bottomCategories) {
+    return SizedBox(
+      height: 120,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: bottomCategories.length,
+        itemBuilder: (context, index) {
+          return _buildCategoryCard(
+            bottomCategories[index],
+            100,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildtravelgudieList(List<Map<String, String>> travelgudie,
+      {bool isLarge = false}) {
+    double size = isLarge ? 130 : 100;
+
+    return SizedBox(
+      height: size + 200,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: travelgudie.length,
+        itemBuilder: (context, index) {
+          return _buildCategoryCard(travelgudie[index], size);
+        },
+      ),
+    );
+  }
+
+  Widget _buildCategoryCard(Map<String, String> category, double size) {
     return Container(
-      height: 100,
-      width: 100,
+      height: size,
+      width: size,
       margin: EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
@@ -462,7 +541,9 @@ class HomePage extends StatelessWidget {
         itemBuilder: (context, index) {
           final tour = tours[index];
           return Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(
+              right: 9,
+            ),
             child: GestureDetector(
               onTap: () {
                 if (!isFeatured) {

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:frist_app/agencyProfile.dart';
 import 'package:frist_app/chousedate.dart';
 import 'package:frist_app/ready to go.dart';
-import '';
+import 'package:frist_app/kashmiar.dart';
 
 void main() {
-  runApp(const MyAp());
+  runApp(const tripkashmir());
 }
 
-class MyAp extends StatelessWidget {
-  const MyAp({super.key});
+class tripkashmir extends StatelessWidget {
+  const tripkashmir({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +36,12 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
   final GlobalKey _itineraryKey = GlobalKey();
 
   final List<String> galleryImages = [
-    'images/cheary.jpg',
-    'images/montin.jpg',
+    'images/dast.jpg',
+    'images/dast.jpg',
     'images/naran.jpg',
     'images/cheary.jpg',
     'images/road.jpg',
-    'images/cheary.jpg',
+    'images/naran.jpg',
   ];
 
   void _scrollTo(GlobalKey key) {
@@ -162,7 +162,7 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
                 return FlexibleSpaceBar(
                   title: isCollapsed
                       ? const Text(
-                          'Cherry Blossom Trip to Hunza Valley',
+                          'Trip To Hunza & Khunjerab Pass',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -173,7 +173,7 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
                     fit: StackFit.expand,
                     children: [
                       Image.asset(
-                        'images/cheary.jpg',
+                        'images/road.jpg',
                         fit: BoxFit.cover,
                       ),
                       const Positioned(
@@ -183,7 +183,7 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Cherry Blossom\nTrip to Hunza Valley',
+                              'Trip To Hunza &\n Khunjerab Pass',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 22,

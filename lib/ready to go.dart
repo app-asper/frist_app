@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frist_app/Home.dart';
 import 'package:frist_app/filter.dart';
-import 'package:frist_app/main.dart';
 import 'package:frist_app/tripdeatil.dart';
-import 'tripdeatil.dart'; // <--- Add this import
 
 void main() => runApp(togo());
 
@@ -32,7 +30,7 @@ class HunzaTripsPage extends StatelessWidget {
       "discount": "13% OFF"
     },
     {
-      "title": "Trip To Hunza & Khunjerab Pass",
+      "title": "Trip To Hunza & Khunerab Pass",
       "location": "From - Lahore",
       "duration": "10 days",
       "groupSize": "20 people",
@@ -43,7 +41,7 @@ class HunzaTripsPage extends StatelessWidget {
       "discount": "13% OFF"
     },
     {
-      "title": "Trip To Hunza & Khunjerab Pass",
+      "title": "Trip To Hunza & Khunj Pass",
       "location": "From - Lahore",
       "duration": "14 days",
       "groupSize": "20 people",
@@ -65,7 +63,7 @@ class HunzaTripsPage extends StatelessWidget {
       "discount": "10% OFF"
     },
     {
-      "title": "Trip To islamabad & Khunjerab Pass",
+      "title": "Trip To isad & Khunjerab Pass",
       "location": "From - Lahore",
       "duration": "10 days",
       "groupSize": "21 people",
@@ -108,11 +106,18 @@ class HunzaTripsPage extends StatelessWidget {
           final trip = trips[index];
           return InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyAp()),
-              );
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyAp()),
+                );
+              } else {
+                // Just click effect, no navigation
+                debugPrint("Card $index clicked");
+              }
             },
+            splashColor: Colors.grey.withOpacity(0.3),
+            borderRadius: BorderRadius.circular(15),
             child: Card(
               margin: EdgeInsets.all(16),
               shape: RoundedRectangleBorder(
