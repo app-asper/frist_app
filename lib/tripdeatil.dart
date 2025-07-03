@@ -148,7 +148,7 @@ class _TripDetailFullPageState extends State<TripDetailFullPage> {
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.share, color: Colors.white),
+                icon: const Icon(Icons.share, color: Colors.black),
                 onPressed: () => _showShareBottomSheet(context),
               ),
             ],

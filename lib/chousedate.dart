@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frist_app/choicegust.dart';
 
 void main() => runApp(MaterialApp(home: Date()));
 
@@ -69,6 +70,10 @@ class _ChooseDatePageState extends State<Date> {
                 Spacer(),
                 ElevatedButton(
                   onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => choice1()),
+                    );
                     // Handle next
                   },
                   style: ElevatedButton.styleFrom(
@@ -78,7 +83,8 @@ class _ChooseDatePageState extends State<Date> {
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                   ),
-                  child: Text("NEXT"),
+                  child: const Text("BOOK NOW",
+                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
