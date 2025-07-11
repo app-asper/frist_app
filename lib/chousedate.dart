@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frist_app/choicegust.dart';
-import 'package:frist_app/confromandpay.dart';
-import 'package:frist_app/tripdeatil.dart';
 
 void main() => runApp(MaterialApp(home: Date()));
 
@@ -29,11 +27,9 @@ class _ChooseDatePageState extends State<Date> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyAp()),
-                )),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Column(
         children: [

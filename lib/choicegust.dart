@@ -31,9 +31,13 @@ class _GuestSelectorPageState extends State<GuestSelectorPage> {
   int adults = 2;
   int children = 2;
   int infants = 1;
+  int oldman = 1;
 
   int calculateTotal() {
-    return (adults * 7000) + (children * 3000) + (infants * 950);
+    return (adults * 7000) +
+        (children * 3000) +
+        (infants * 950) +
+        (oldman * 1500);
   }
 
   @override
@@ -89,10 +93,14 @@ class _GuestSelectorPageState extends State<GuestSelectorPage> {
 
               const SizedBox(height: 20),
 
+              buildCounterRow("Oldman", "Above Age 60", oldman, (val) {
+                setState(() => oldman = val);
+              }),
+
               const Spacer(),
 
               Text(
-                "$adults Adult, $children Children, $infants Infant",
+                "$adults Adult, $children Children, $infants Infant, $oldman Oldman",
                 style: const TextStyle(fontSize: 14),
               ),
               const SizedBox(height: 8),

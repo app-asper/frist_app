@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frist_app/Home.dart';
-import 'package:frist_app/choicegust.dart';
-import 'package:frist_app/copen.dart';
 
 void main() {
   runApp(const confrom());
@@ -20,418 +17,8 @@ class confrom extends StatelessWidget {
   }
 }
 
-class ConfirmationScreen extends StatefulWidget {
+class ConfirmationScreen extends StatelessWidget {
   const ConfirmationScreen({super.key});
-
-  @override
-  State<ConfirmationScreen> createState() => _ConfirmationScreenState();
-}
-
-class _ConfirmationScreenState extends State<ConfirmationScreen> {
-  String _guests = '2 Adults, 2 Children, 1 Infant';
-  String _date = 'Jan 02, 22 - Jan 12, 22';
-  String _room = 'Twin sharing';
-  String _services = 'Airport pickup, Guide included';
-
-  Future<void> _showBottomSheet(BuildContext context, String title) async {
-    final result = await showModalBottomSheet<String>(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        if (title == "Guests") {
-          int tempAdults = 2;
-          int tempChildren = 2;
-          int tempInfants = 1;
-
-          return StatefulBuilder(
-            builder: (context, setState) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        const SizedBox(width: 4),
-                        const Text(
-                          'Choose Guests',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    // 🔹 Adults
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Adults",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(height: 4),
-                            Text("Ages 13+",
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.grey)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
-                              onPressed: () {
-                                if (tempAdults > 0) {
-                                  setState(() => tempAdults--);
-                                }
-                              },
-                            ),
-                            Text(
-                              "$tempAdults",
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () => setState(() => tempAdults++),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 25),
-
-                    // 🔹 Children
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Children",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(height: 4),
-                            Text("Ages 2–12",
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.grey)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
-                              onPressed: () {
-                                if (tempChildren > 0) {
-                                  setState(() => tempChildren--);
-                                }
-                              },
-                            ),
-                            Text(
-                              "$tempChildren",
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () => setState(() => tempChildren++),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 25),
-
-                    // 🔹 Infants
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Infants",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(height: 4),
-                            Text("Under 2",
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.grey)),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
-                              onPressed: () {
-                                if (tempInfants > 0) {
-                                  setState(() => tempInfants--);
-                                }
-                              },
-                            ),
-                            Text(
-                              "$tempInfants",
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () => setState(() => tempInfants++),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    Center(
-                      child: SizedBox(
-                        width: 200,
-                        child: OutlinedButton(
-                          onPressed: () {
-                            final result =
-                                "$tempAdults Adult${tempAdults > 1 ? 's' : ''}, "
-                                "$tempChildren Children, $tempInfants Infant";
-                            Navigator.pop(context, result);
-                          },
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: Colors.green),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                          ),
-                          child: const Text(
-                            "Confirm",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.green,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-
-        List<Widget> items = [];
-
-        if (title == "Date") {
-          items = List.generate(5, (index) {
-            String dateRange =
-                "Jan 0${index * 2 + 2}, 22 - Jan ${index * 2 + 12}, 22";
-            return ListTile(
-              title: Text(dateRange),
-              trailing: const Icon(Icons.radio_button_off),
-              onTap: () => Navigator.pop(context, dateRange),
-            );
-          });
-        } else if (title == "Room") {
-          int separateRoom = 1;
-          int separateSingleRoom = 1;
-
-          return StatefulBuilder(
-            builder: (context, setState) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        const SizedBox(width: 4),
-                        const Text(
-                          'Choose Separate Rooms',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Separate Room',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
-                              onPressed: () {
-                                if (separateRoom > 0) {
-                                  setState(() => separateRoom--);
-                                }
-                              },
-                            ),
-                            Text(
-                              "$separateRoom",
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () => setState(() => separateRoom++),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Separate Room (Single)',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
-                              onPressed: () {
-                                if (separateSingleRoom > 0) {
-                                  setState(() => separateSingleRoom--);
-                                }
-                              },
-                            ),
-                            Text(
-                              "$separateSingleRoom",
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () =>
-                                  setState(() => separateSingleRoom++),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Center(
-                      child: SizedBox(
-                        width: 200,
-                        child: OutlinedButton(
-                          onPressed: () {
-                            final result =
-                                "Separate: $separateRoom, Single: $separateSingleRoom";
-                            Navigator.pop(context, result);
-                          },
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: Colors.green),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                          ),
-                          child: const Text(
-                            "Confirm",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.green,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              );
-            },
-          );
-        } else if (title == "Services") {
-          items = ["Airport Pickup", "Guide Included", "Meals Included"]
-              .map((text) => ListTile(
-                    title: Text(text),
-                    trailing: const Icon(Icons.radio_button_off),
-                    onTap: () => Navigator.pop(context, text),
-                  ))
-              .toList();
-        }
-
-        return Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  Text(
-                    'Choose $title',
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              ...items,
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.green,
-                  backgroundColor: const Color(0xFFE6F4EA),
-                ),
-                child: const Text("Confirm"),
-              )
-            ],
-          ),
-        );
-      },
-    );
-
-    if (result != null) {
-      setState(() {
-        if (title == "Guests") _guests = result;
-        if (title == "Date") _date = result;
-        if (title == "Room") _room = result;
-        if (title == "Services") _services = result;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -443,10 +30,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => choice1()));
-          },
+          onPressed: () {},
         ),
       ),
       body: SingleChildScrollView(
@@ -455,6 +39,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Trip Image and Title
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -486,68 +71,48 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                 ],
               ),
               const SizedBox(height: 20),
+
               const Text('Your Trip',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               ListTile(
                 title: const Text('Guests'),
-                subtitle: Text(_guests),
-                trailing: GestureDetector(
-                    onTap: () => _showBottomSheet(context, "Guests"),
-                    child: greenEditButton()),
+                subtitle: const Text('2 Adults, 2 Children, 1 Infant'),
+                trailing: greenEditButton(),
               ),
               ListTile(
                 title: const Text('Date'),
-                subtitle: Text(_date),
-                trailing: GestureDetector(
-                    onTap: () => _showBottomSheet(context, "Date"),
-                    child: greenEditButton()),
+                subtitle: const Text('Jan 02, 22 - Jan 12, 22'),
+                trailing: greenEditButton(),
               ),
               const SizedBox(height: 20),
+
               const Text('Addons',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               ListTile(
                 title: const Text('Separate room'),
-                subtitle: Text(_room),
-                trailing: GestureDetector(
-                    onTap: () => _showBottomSheet(context, "Room"),
-                    child: greenEditButton()),
+                subtitle: const Text('Twin sharing'),
+                trailing: greenEditButton(),
               ),
               ListTile(
                 title: const Text('Additional services'),
-                subtitle: Text(_services),
-                trailing: GestureDetector(
-                    onTap: () => _showBottomSheet(context, "Services"),
-                    child: greenEditButton()),
+                subtitle: const Text('Airport pickup, Guide included'),
+                trailing: greenEditButton(),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Price Details',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              PriceDetailRow(
-                label: 'Adult',
-                price: 'PKR 7000 X 2',
-                total: 'PKR 14000',
-              ),
-              PriceDetailRow(
-                label: 'Children',
-                price: 'PKR 3500 X 2',
-                total: 'PKR 7000',
-              ),
-              PriceDetailRow(
-                label: 'Infants',
-                price: 'PKR 3500 X 1',
-                total: 'PKR 3500',
-              ),
-              PriceDetailRow(
-                label: 'Addons',
-                price: 'No Addon',
-                total: 'PKR 0',
-              ),
+
+              const Text('Price Details',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const PriceDetailRow(
+                  label: 'Adult', price: 'PKR 7000 X 2', total: 'PKR 14000'),
+              const PriceDetailRow(
+                  label: 'Children', price: 'PKR 3500 X 2', total: 'PKR 7000'),
+              const PriceDetailRow(
+                  label: 'Infants', price: 'PKR 3500 X 1', total: 'PKR 3500'),
+              const PriceDetailRow(
+                  label: 'Addons', price: 'No Addon', total: 'PKR 0'),
               const SizedBox(height: 20),
+
+              // Payment Options
               const PaymentOptionsSection(),
             ],
           ),
@@ -557,48 +122,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   }
 }
 
-Widget buildGuestRow(String label, int value, Function(int) onChanged) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-          const SizedBox(height: 4),
-          Text(
-            label == "Adults"
-                ? "Ages 13+"
-                : label == "Children"
-                    ? "Ages 2–12"
-                    : "Under 2",
-            style: const TextStyle(fontSize: 13, color: Colors.grey),
-          )
-        ],
-      ),
-      Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.remove_circle_outline),
-            onPressed: () {
-              if (value > 0) onChanged(value - 1);
-            },
-          ),
-          Text("$value",
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-          IconButton(
-            icon: const Icon(Icons.add_circle_outline),
-            onPressed: () => onChanged(value + 1),
-          ),
-        ],
-      )
-    ],
-  );
-}
-
+// Green "Edit" button
 Widget greenEditButton() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -666,8 +190,6 @@ class _PaymentOptionsSectionState extends State<PaymentOptionsSection> {
   int _selectedMethod = 0;
   bool _termsAccepted = false;
 
-  String _selectedPaymentType = "Jazzcash";
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -678,12 +200,7 @@ class _PaymentOptionsSectionState extends State<PaymentOptionsSection> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         const SizedBox(height: 10),
         ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => copen()),
-            );
-          },
+          onPressed: () {},
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.green,
             backgroundColor: const Color(0xFFE6F4EA),
@@ -727,6 +244,8 @@ class _PaymentOptionsSectionState extends State<PaymentOptionsSection> {
         const Text("Booking Method",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 10),
+
+        // Booking Method Options with icons on right
         RadioListTile(
           value: 0,
           groupValue: _selectedMethod,
@@ -751,75 +270,6 @@ class _PaymentOptionsSectionState extends State<PaymentOptionsSection> {
               "Pay (30%) PKR 6,982 now & remaining (70%) PKR 16,293 payment will be on departure time.",
               style: TextStyle(color: Colors.grey)),
         ),
-        if (_selectedMethod == 1) ...[
-          const Text("Payment Method",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            elevation: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: const [
-                  Icon(Icons.account_balance_wallet, color: Colors.green),
-                  SizedBox(width: 15),
-                  Text("Jazzcash",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green)),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // 🔹 Bank Transfer Card
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            elevation: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: const [
-                  Icon(Icons.account_balance, color: Colors.black54),
-                  SizedBox(width: 15),
-                  Text("Bank Transfer",
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // 🔹 Debit / Credit Card
-          Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            elevation: 4,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                children: const [
-                  Icon(Icons.credit_card, color: Colors.black54),
-                  SizedBox(width: 15),
-                  Text("Debit / Credit",
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 30),
-        ],
         RadioListTile(
           value: 2,
           groupValue: _selectedMethod,
@@ -830,6 +280,8 @@ class _PaymentOptionsSectionState extends State<PaymentOptionsSection> {
               style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         const Divider(height: 40),
+
+        // Terms & Conditions
         CheckboxListTile(
           value: _termsAccepted,
           onChanged: (val) => setState(() => _termsAccepted = val!),
@@ -859,197 +311,25 @@ class _PaymentOptionsSectionState extends State<PaymentOptionsSection> {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 10),
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             onPressed: _termsAccepted
                 ? () {
-                    if (_selectedMethod == 0) {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(25),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.check_circle,
-                                      size: 70, color: Colors.green),
-                                  const SizedBox(height: 20),
-                                  const Text(
-                                    "Booking Confirmed!",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  const Text(
-                                    "You have successfully reserved your trip.\nPlease complete the payment within 6 hours.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                  const SizedBox(height: 25),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: OutlinedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Homepage()),
-                                        );
-                                      },
-                                      style: OutlinedButton.styleFrom(
-                                        side: const BorderSide(
-                                            color: Colors.green),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 14),
-                                      ),
-                                      child: const Text("Back To Home",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    } else if (_selectedMethod == 1) {
-                      String paymentType = _selectedPaymentType;
-                      String accountTitle = "Tripee";
-                      String accountNumber = "";
-
-                      if (paymentType == "Jazzcash") {
-                        accountNumber = "+92 300 123 456 7";
-                      } else if (paymentType == "Bank Transfer") {
-                        accountTitle = "Tripee Pvt Ltd";
-                        accountNumber = "123456789123456";
-                      } else {
-                        accountNumber = "xxxx xxxx xxxx 1234";
-                      }
-
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(25),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.check_circle,
-                                      size: 70, color: Colors.green),
-                                  const SizedBox(height: 20),
-                                  const Text(
-                                    "your order was\nsubmitted successfully!",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  const Text(
-                                      "As Soon as Complete your Payment.",
-                                      style: TextStyle(color: Colors.grey)),
-                                  const SizedBox(height: 20),
-                                  const Divider(),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text("Payment Type"),
-                                      Text(paymentType,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text("Account Title"),
-                                      Text(accountTitle,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text("Account Number"),
-                                      Text(accountNumber,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 25),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: OutlinedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Homepage()),
-                                        );
-                                      },
-                                      style: OutlinedButton.styleFrom(
-                                        side: const BorderSide(
-                                            color: Colors.green),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 14),
-                                      ),
-                                      child: const Text("Back To Home",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }
+                    // Confirm logic here
                   }
                 : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)),
-              padding: const EdgeInsets.symmetric(vertical: 18),
+                  borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.symmetric(vertical: 16),
             ),
             child: const Text("Confirm",
-                style: TextStyle(fontSize: 20, color: Colors.white)),
+                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
-        ),
+        )
       ],
     );
   }
