@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
     },
   ];
 
-  final List<Map<String, String>> bottomTrendingTours = [
+  final List<Map<String, String>> readytogo = [
     {
       'from': 'Islamabad',
       'title': 'Trip to Swat Valley',
@@ -179,12 +179,14 @@ class HomePage extends StatelessWidget {
     },
   ];
   final List<Map<String, String>> travelgudie = [
-    {'title': 'Sightseeing', 'image': 'images/dast.jpg'},
-    {'title': 'Beach', 'image': 'images/sightseeing.jpg'},
-    {'title': 'Camping', 'image': 'images/dast.jpg'},
-    {'title': 'Mountains', 'image': 'images/sightseeing.jpg'},
-    {'title': 'Desert', 'image': 'images/dast.jpg'},
-    {'title': 'City Tours', 'image': 'images/dast.jpg'},
+    {
+      'title': 'Krachi\nTo\n Naran \n Travel \n Guides',
+      'image': 'images/dast.jpg'
+    },
+    {
+      'title': 'Krachi\nTo\n Naran \n Travel \n Guides',
+      'image': 'images/sightseeing.jpg'
+    },
   ];
 
   final List<Map<String, String>> Thingbefore = [
@@ -320,15 +322,12 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 24),
           _buildSectionTitle("Popular Destination"),
           SizedBox(height: 10),
-          _buildCategoryList(bottomCategories),
+          _buildbottomCategoriesList(bottomCategories),
           SizedBox(height: 20),
-          _buildSectionHeader(
-            context,
-            "Ready To Go Tours",
-            bottomTrendingTours,
-          ),
+          _buildSectionHeader(context, "Ready To Go Tours", readytogo,
+              isradytogo: true),
           SizedBox(height: 10),
-          _buildTourList(bottomTrendingTours),
+          _buildTourList(readytogo),
           SizedBox(height: 20),
           _buildSectionHeader(context, "Hot Offer", upcomingTours,
               isUpcoming: true),
@@ -343,7 +342,8 @@ class HomePage extends StatelessWidget {
           _buildSectionHeader(context, "Travel Guides", travelgudie,
               isTravelgudie: true),
           SizedBox(height: 20),
-          _buildCategoryList(travelgudie),
+          _buildtravelgudieList(travelgudie),
+          SizedBox(height: 20),
           _buildSectionHeader(
               context, "Things To Do Before\n Going Trip", Thingbefore,
               isFeedback: true),
@@ -409,13 +409,16 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(
-      BuildContext context, String title, List<Map<String, String>> items,
-      {bool isTravelgudie = false,
-      bool isUpcoming = false,
-      bool isWeekend = false,
-      bool isTrendingTours = false,
-      bool isTop = false,
-      bool isFeedback = false}) {
+    BuildContext context,
+    String title,
+    List<Map<String, String>> items, {
+    bool isTravelgudie = false,
+    bool isUpcoming = false,
+    bool isWeekend = false,
+    bool isTrendingTours = false,
+    bool isFeedback = false,
+    bool isradytogo = false,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -424,13 +427,13 @@ class HomePage extends StatelessWidget {
         TextButton(
             onPressed: () {
               Widget page;
-              if (isTop) {
+              if (isTrendingTours) {
                 page = togo();
               } else if (isUpcoming) {
                 page = hotoffer();
               } else if (isWeekend) {
-                page = Popluar();
-              } else if (isTrendingTours) {
+                page = popluar();
+              } else if (isradytogo) {
                 page = Myall();
               } else if (isTravelgudie) {
                 page = TravelGuide();
@@ -452,8 +455,8 @@ class HomePage extends StatelessWidget {
 
   Widget _buildCategoryList(List<Map<String, String>> categories) {
     return SizedBox(
-      height: 130,
-      width: 130,
+      height: 160,
+      width: 160,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
@@ -470,7 +473,8 @@ class HomePage extends StatelessWidget {
   Widget _buildbottomCategoriesList(
       List<Map<String, String>> bottomCategories) {
     return SizedBox(
-      height: 120,
+      height: 160,
+      width: 160,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: bottomCategories.length,
@@ -486,21 +490,27 @@ class HomePage extends StatelessWidget {
 
   Widget _buildtravelgudieList(List<Map<String, String>> travelgudie,
       {bool isLarge = false}) {
-    double size = isLarge ? 130 : 100;
+    double size = isLarge ? 100 : 170;
 
     return SizedBox(
-      height: size + 200,
+      height: 250,
+      width: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: travelgudie.length,
         itemBuilder: (context, index) {
-          return _buildCategoryCard(travelgudie[index], size);
+          return _buildCategoryCard(
+            travelgudie[index],
+            size,
+            isLargeText: true,
+          );
         },
       ),
     );
   }
 
-  Widget _buildCategoryCard(Map<String, String> category, double size) {
+  Widget _buildCategoryCard(Map<String, String> category, double size,
+      {bool isLargeText = false}) {
     return Container(
       height: size,
       width: size,
@@ -524,7 +534,11 @@ class HomePage extends StatelessWidget {
           child: Text(
             category['title']!,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: isLargeText ? 20 : 16,
+            ),
           ),
         ),
       ),
@@ -534,23 +548,21 @@ class HomePage extends StatelessWidget {
   Widget _buildTourList(List<Map<String, String>> tours,
       {bool isFeatured = false}) {
     return SizedBox(
-      height: 260,
+      height: 250,
       child: PageView.builder(
-        controller: PageController(viewportFraction: 0.85),
+        controller: PageController(viewportFraction: 0.9),
         itemCount: tours.length,
         itemBuilder: (context, index) {
           final tour = tours[index];
           return Padding(
             padding: EdgeInsets.only(
-              right: 9,
+              left: index == 0 ? 16 : 10, // 👈 Match heading left padding
+              right: 6,
             ),
             child: GestureDetector(
               onTap: () {
-                if (!isFeatured) {
-                  print("Default card clicked: ${tour['title']}");
-                } else {
-                  print("Custom card clicked: ${tour['title']}");
-                }
+                print(
+                    "${isFeatured ? "Custom" : "Default"} card clicked: ${tour['title']}");
               },
               child: _buildTourCard(
                 from: tour['from']!,
