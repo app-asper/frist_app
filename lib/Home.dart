@@ -494,7 +494,7 @@ class HomePage extends StatelessWidget {
 
     return SizedBox(
       height: 250,
-      width: 200,
+      width: 280,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: travelgudie.length,
@@ -548,16 +548,17 @@ class HomePage extends StatelessWidget {
   Widget _buildTourList(List<Map<String, String>> tours,
       {bool isFeatured = false}) {
     return SizedBox(
-      height: 250,
+      height: 290,
       child: PageView.builder(
-        controller: PageController(viewportFraction: 0.9),
+        controller: PageController(
+          viewportFraction: 0.93, // 👈 Large card + partial side card visible
+        ),
         itemCount: tours.length,
         itemBuilder: (context, index) {
           final tour = tours[index];
           return Padding(
             padding: EdgeInsets.only(
-              left: index == 0 ? 16 : 10, // 👈 Match heading left padding
-              right: 6,
+              left: index == 0 ? 16 : 6,
             ),
             child: GestureDetector(
               onTap: () {
